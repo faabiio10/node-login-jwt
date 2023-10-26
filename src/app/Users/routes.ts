@@ -6,6 +6,6 @@ import users from "@app/Users/Controllers/UsersController";
 
 const routes = Router()
 
-routes.get('/users', authMiddleware, users.index)
+routes.get('/users', authMiddleware, users.searchAllUsers)
 
 export default routes

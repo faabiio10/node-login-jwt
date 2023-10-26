@@ -1,7 +1,9 @@
 import { Request,Response } from "express";
 
 class UsersControllers {
-    async index(_req: Request, res: Response):Promise<Response> {
+
+    //List all users
+    async searchAllUsers(_req: Request, res: Response):Promise<Response> {
         const users = [
             {id: '456', email: 'Jhon@example.com'},
         ]

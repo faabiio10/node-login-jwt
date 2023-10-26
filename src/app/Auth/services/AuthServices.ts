@@ -6,6 +6,8 @@ import config from "@/config"
 import { getValue, setValue } from "@/libs/redis";
 
 export default class AuthService {
+
+    //Sign-in function, verify credentials and create a JWT Token
     async signIn(email: string, password: string): Promise<{ user: object; token: string }>{
         const user = {
             id: '123',
@@ -38,10 +40,12 @@ export default class AuthService {
 
     }
 
+    //Sign-out function, send token to the blacklist function.
     async signOut(token: string): Promise<void> {
         await this.blacklistToken(token)
     }
 
+    //Verify token structure and validity
     async validateToken(token: string): Promise<string> {
         try {
             if (await this.isTokenBlacklisted(token))
@@ -57,12 +61,14 @@ export default class AuthService {
         }
     }
 
+    //Verify token validity
     private async isTokenBlacklisted ( token: string): Promise<boolean> {
         const blacklistedToken = await getValue(`tokens:invalidated:${token}`)
 
         return !!blacklistedToken
     }
 
+    //Set token to invalidated
     private async blacklistToken( token:string):Promise<void>{
         await setValue(`tokens:invalidated:${token}`, true)
     }

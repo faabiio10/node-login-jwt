@@ -4,6 +4,8 @@ import AuthService from '@/app/Auth/services/AuthServices'
 import AuthError from '../exceptions/AuthError'
 
 class AuthController {
+
+    //CSend credentials to create a new token
     async create( req: Request, res: Response): Promise<Response> {
         const { email, password } = req.body
 
@@ -19,6 +21,7 @@ class AuthController {
         }
     }
 
+    //Add token to blacklist
     async destroy( req: Request, res: Response): Promise<Response> {
         req.user.id && new AuthService().signOut(req.user.token)
 
